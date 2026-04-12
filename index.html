@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Payment Simulator</title>
+    </head>
+    <body>
+        <h1>Payment Simulator</h1>
+
+        <input id="amount" placeholder="Amount"/>
+        <button type="button" onclick="submitPayment()">Pay</button>
+
+        <p id="result"></p>
+            
+            <script>
+                function submitPayment() {
+                const amount = parseFloat(document.getElementById("amount").value);
+
+                let response;
+
+             if (!amount || amount <= 0) {
+              response = "INVALID_AMOUNT";
+                } else if (amount > 1000) {
+              response = "51 - INSUFFICIENT_FUNDS";
+                } else {
+              response = "00 - SUCCESS";
+                }
+
+                document.getElementById("result").innerText = response;
+                }
+            </script>
+    </body>
+</html>
