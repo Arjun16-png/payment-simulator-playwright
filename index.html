@@ -12,18 +12,29 @@
         <p id="result"></p>
             
             <script>
+                let lastWasTimeout = false;
+
                 function submitPayment() {
-                const amount = parseFloat(document.getElementById("amount").value);
+                    const amount = parseFloat(document.getElementById("amount").value);
+                    let response;
 
-                let response;
-
-             if (!amount || amount <= 0) {
-              response = "INVALID_AMOUNT";
-                } else if (amount > 1000) {
-              response = "51 - INSUFFICIENT_FUNDS";
-                } else {
-              response = "00 - SUCCESS";
-                }
+                    if (isNaN(amount) || amount <= 0) {
+                      response = "INVALID_AMOUNT";
+                    } else if (amount === 999) {
+                        if (!lastWasTimeout) {
+                        response = "68 - TIMEOUT";
+                        lastWasTimeout = true;
+                        } else {
+                        response = "00 - SUCCESS";
+                        lastWasTimeout = false;
+                        }
+                    } else if (amount > 1000) {
+                        response = "51 - INSUFFICIENT_FUNDS";
+                        lastWasTimeout = false;
+                    } else {
+                        response = "00 - SUCCESS";
+                        lastWasTimeout = false;
+                    }
 
                 document.getElementById("result").innerText = response;
                 }

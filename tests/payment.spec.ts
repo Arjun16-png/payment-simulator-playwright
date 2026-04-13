@@ -21,3 +21,13 @@ test ('invalid amount', async ({ page }) => {
     await page.click('button')
     expect(page.locator('#result')).toContainText('INVALID')
 })
+
+test ('timeout payment retry success', async ({ page }) => {
+    await page.fill('#amount', '999')
+
+    await page.click('button')
+    expect(page.locator('#result')).toContainText('68')
+
+    await page.click('button')
+    expect(page.locator('#result')).toContainText('00')
+})
