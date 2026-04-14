@@ -22,6 +22,12 @@ test ('invalid amount', async ({ page }) => {
     expect(page.locator('#result')).toContainText('INVALID')
 })
 
+test ('invalid zero amount', async ({ page }) => {
+    await page.fill('#amount','0')
+    await page.click('button')
+    expect(page.locator('#result')).toContainText('INVALID')
+})
+
 test ('timeout payment retry success', async ({ page }) => {
     await page.fill('#amount', '999')
 
